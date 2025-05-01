@@ -13,7 +13,7 @@ describe 'Auditable#callbacks' do
 
     it 'should create a new audit using callback' do
       plant.should_receive(:manually_update_audit) { plant.save_audit( {'action' => 'dig', :tag => 'tagged!', 'modifications' => { 'name' => 'over ruled!' } } ) }
-      plant.update_attributes :name => 'an orange shrub'
+      plant.update :name => 'an orange shrub'
       plant.audited_changes.should == {'name' => ['a green shrub', 'over ruled!']}
       plant.audits.last.action.should == 'dig'
       plant.audits.last.tag.should == 'tagged!'
@@ -37,7 +37,7 @@ describe 'Auditable#callbacks' do
 
     it 'should create a new audit using callback' do
       tree.should_receive(:manually_update_audit) { tree.save_audit( {'action' => 'dig', :tag => 'tagged!', 'modifications' => { 'name' => 'over ruled!' } } ) }
-      tree.update_attributes :name => 'a small oak'
+      tree.update :name => 'a small oak'
       tree.audited_changes.should == {"plants"=>[[], nil], "name"=>["a tall pine", "over ruled!"]}
       tree.audits.last.action.should == 'dig'
       tree.audits.last.tag.should == 'tagged!'
@@ -64,7 +64,7 @@ describe 'Auditable#callbacks' do
 
     it 'should create a new audit using callback' do
       kale.should_receive(:manually_update_audit) { kale.save_audit( {'action' => 'dig', 'modifications' => { 'name' => 'over ruled!' } } ) }
-      kale.update_attributes :name => 'a small oak'
+      kale.update :name => 'a small oak'
       kale.audited_changes.should ==  {'tastey'=>[true, nil], 'name'=>['a bunch of leafy kale', 'over ruled!']}
       kale.audits.last.action.should == 'dig'
     end

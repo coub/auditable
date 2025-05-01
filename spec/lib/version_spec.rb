@@ -14,12 +14,12 @@ describe "Auditable::Audit#version" do
 
     it "it should call #latest_version on snap" do
       model.should_receive(:latest_version) { 12345 }
-      model.update_attributes :title => 'Another Test'
+      model.update :title => 'Another Test'
       model.audits.last.version.should eql 12345
     end
 
     it "should diff by version" do
-      model.update_attributes :title => 'Manual Version Change'
+      model.update :title => 'Manual Version Change'
 
       model.audited_changes.should eql({"title"=>["Test", "Manual Version Change"]})
 
@@ -31,7 +31,7 @@ describe "Auditable::Audit#version" do
     end
 
     it "should find by version" do
-      model.update_attributes :title => 'Change 1'
+      model.update :title => 'Change 1'
       version = model.audits.last.version
 
       model.audits.where(:version => version).first.latest_diff.should eql({"title"=>["Test", "Change 1"]})
@@ -46,7 +46,7 @@ describe "Auditable::Audit#version" do
     end
 
     it "should increment version on update" do
-      kale.update_attributes :name => 'a single leaf of kale'
+      kale.update :name => 'a single leaf of kale'
       kale.audits.last.version.should eql 2
     end
   end
