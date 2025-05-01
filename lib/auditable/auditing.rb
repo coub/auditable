@@ -147,7 +147,7 @@ module Auditable
 
         self.audited_version = options.delete(:version)
 
-        has_many :audits, options
+        has_many :audits, **options
 
         if self.audited_after_create
           after_create self.audited_after_create

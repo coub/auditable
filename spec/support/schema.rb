@@ -4,7 +4,7 @@ ActiveRecord::Base.establish_connection({
 })
 
 # prepare test data
-class CreateTestSchema < ActiveRecord::Migration
+class CreateTestSchema < ActiveRecord::Migration[6.1]
   def change
     create_table "surveys", :force => true do |t|
       t.string "title"

@@ -1,4 +1,4 @@
-class UpdateAudits < ActiveRecord::Migration
+class UpdateAudits < ActiveRecord::Migration[6.1]
   def change
     add_column :audits, :version, :integer
 
